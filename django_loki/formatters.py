@@ -3,6 +3,7 @@ import pytz
 import socket
 
 from datetime import datetime
+from logging import BASIC_FORMAT
 
 
 class LokiFormatter(logging.Formatter, object):
@@ -16,8 +17,8 @@ class LokiFormatter(logging.Formatter, object):
 
     def __init__(self, fmt: str, dfmt: str, style, fqdn=False):
         super(LokiFormatter, self).__init__()
-        self.fmt = fmt
-        self.dfmt = dfmt
+        self.fmt = fmt or BASIC_FORMAT
+        self.dfmt = dfmt or '%Y-%m-%d %H:%M:%S'
         self.style = style
         if fqdn:
             self.host = socket.getfqdn()
