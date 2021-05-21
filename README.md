@@ -71,7 +71,7 @@ LOGGING = {
             'formatter': 'loki',  # required, loki formatter,
             'port': 3100,  # optional, your grafana/Loki server port, default is 3100
             'timeout': 0.5,  # optional, request Loki-server by http or https time out, default is 0.5
-            'protocol': 'http',  # optional, Loki-server protocol, default is http, default is http
+            'protocol': 'http',  # optional, Loki-server protocol, default is http
             'source': 'Loki',  # optional, label name for Loki, default is Loki
             'src_host': 'localhost',  # optional, label name for Loki, default is Loki
             'tz': 'UTC',  # optional, timezone for formatting timestamp, default is UTC, e.g:Asia/Shanghai
