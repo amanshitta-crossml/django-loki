@@ -12,7 +12,7 @@ class LokiHttpHandler(logging.Handler, object):
     :param port: The port of the loki server (default 3100).
     """
 
-    def __init__(self, host: str = 'localhost', port: str = 3100, timeout: float = 0.5, protocol: str = 'http',
+    def __init__(self, host: str = 'localhost', port: str = 3100, timeout=0.5, protocol: str = 'http',
                  source: str = 'Loki', src_host: str = 'localhost', tz: str = 'UTC'):
         super(LokiHttpHandler, self).__init__()
         self._address = f'{protocol}://{host}:{port}'
