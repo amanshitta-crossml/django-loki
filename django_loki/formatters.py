@@ -3,7 +3,6 @@ import pytz
 import socket
 
 from datetime import datetime
-from logging import BASIC_FORMAT
 
 
 class LokiFormatter(logging.Formatter, object):
@@ -17,8 +16,8 @@ class LokiFormatter(logging.Formatter, object):
 
     def __init__(self, fmt: str, dfmt: str, style, fqdn=False):
         super(LokiFormatter, self).__init__()
-        self.fmt = fmt or BASIC_FORMAT
-        self.dfmt = dfmt or '%Y-%m-%d %H:%M:%S'
+        self.fmt = fmt
+        self.dfmt = dfmt
         self.style = style
         if fqdn:
             self.host = socket.getfqdn()
@@ -54,10 +53,13 @@ class LokiFormatter(logging.Formatter, object):
             if s[-1:] != "\n":
                 s = s + "\n"
             s = s + self.formatStack(record.stack_info)
+
         message = {
             'streams': [
-                {
-                    'labels': f'{{source="{self.source}",job="{record.name}",host="{self.src_host}"}}',
+                {   
+                 
+                    'labels': f'{{source="{self.source}",job="{record.name}",host="{self.src_host}",level="{record.levelname}",message="{record.getMessage()}"}}' if record.name != 'django.server' \
+                        else f'{{source="{self.source}",job="{record.name}",host="{self.src_host}",level="{record.levelname}"}}',
                     'entries': [
                         {
                             'ts': self.format_timestamp(record.created).isoformat('T'),
